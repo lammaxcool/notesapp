@@ -1,6 +1,6 @@
 package com.notesapp.notesapp.repository;
 
-import com.notesapp.notesapp.model.NotePo;
+import com.notesapp.notesapp.model.persistence.NotePo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 class NotesRepositoryTest {
@@ -54,5 +55,14 @@ class NotesRepositoryTest {
                     assertThat(it.getTitle()).isEqualTo(note.getTitle());
                     assertThat(it.getContent()).isEqualTo(persistedNote.getContent());
                 });
+    }
+
+    @Test
+    void existsById() {
+        NotePo note = new NotePo("title", "content");
+
+        var persistedNote = notesRepository.saveAndFlush(note);
+
+        assertTrue(notesRepository.existsById(persistedNote.getId()));
     }
 }
