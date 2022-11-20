@@ -1,0 +1,47 @@
+# temporary and local files
+*.log
+*.log.gz
+*.rdb
+*.bak
+*.local
+*.csv
+
+# bug in logger config file
+${filename}
+
+# ignore Eclipse config files
+.classpath
+.project
+.settings/
+*.ipr
+*.iws
+.factorypath
+.springBeans
+
+# ignore IntelliJ IDEA config files
+*.iml
+.idea/*
+**/.idea
+
+# compiled code
+target/
+node_modules/
+
+# ignove Visual Studio compiled and temporary files
+.vs/
+Debug/
+Release/
+
+### Gradle ###
+.gradle
+**/build/
+!src/**/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
