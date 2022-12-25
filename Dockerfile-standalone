@@ -1,17 +1,9 @@
-FROM openjdk:17-jdk-alpine as builder
-WORKDIR application
-ARG JAR_FILE
-COPY ${JAR_FILE} app.jar
-RUN java -Djarmode=layertools -jar app.jar extract
+FROM gradle:7.2.0-jdk17 AS builder
+WORKDIR /workdir/server
+COPY . /workdir/server
+RUN gradle build --no-daemon -x test
 
-FROM openjdk:17-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
+FROM openjdk:17-jdk-slim
 EXPOSE 8080
-WORKDIR application
-COPY --from=builder application/dependencies/ ./
-COPY --from=builder application/spring-boot-loader/ ./
-COPY --from=builder application/snapshot-dependencies/ ./
-COPY --from=builder application/application/ ./
-ENV JAVA_OPTS=""
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS org.springframework.boot.loader.JarLauncher"]
+COPY --from=builder /workdir/server/build/libs/*.jar /app/spring-boot-server.jar
+ENTRYPOINT ["java", "-jar", "/app/spring-boot-server.jar"]
