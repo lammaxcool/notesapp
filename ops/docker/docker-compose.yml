@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+
+  notes-app:
+    container_name: app
+    image: notes-app
+    environment:
+      - JAVA_OPTS=
+        -Dspring.profiles.active=docker
+        -Dspring.config.location=/opt/local/notes-app/config/application-docker.yml
+    volumes:
+      - ./configs:/opt/local/notes-app/config
+      - ~/data/docker/notes-app/log:/opt/local/notes-app/log
+    networks:
+      - app-network
+    ports:
+      - "8080:8080"
+
+networks:
+  app-network:
+    driver: bridge
