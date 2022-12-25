@@ -1,9 +1,9 @@
 FROM gradle:7.2.0-jdk17 AS builder
-WORKDIR /workdir/server
-COPY . /workdir/server
+WORKDIR /application
+COPY . /application
 RUN gradle build --no-daemon -x test
 
 FROM openjdk:17-jdk-slim
 EXPOSE 8080
-COPY --from=builder /workdir/server/build/libs/*.jar /app/spring-boot-server.jar
+COPY --from=builder /application/build/libs/*.jar /app/spring-boot-server.jar
 ENTRYPOINT ["java", "-jar", "/app/spring-boot-server.jar"]
