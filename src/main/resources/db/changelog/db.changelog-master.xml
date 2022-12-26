@@ -6,8 +6,8 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet id="2022-12-22" author="m.haponiuk">
-        <createTable tableName="Notes">
-            <column autoIncrement="true" name="id" type="NUMBER(20)">
+        <createTable tableName="notes">
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="PK_NOTES_ID"/>
             </column>
 
@@ -19,6 +19,10 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <rollback>
+            <dropTable tableName="Notes"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>
