@@ -5,16 +5,11 @@ spring:
     password: password
     driverClassName: org.h2.Driver
 
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      javax:
-        persistence:
-          schema-generation:
-            action: create
-            create-script-source: db.migration/create.sql
 
   h2:
     console.enabled: true
