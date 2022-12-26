@@ -6,4 +6,5 @@ RUN gradle build --no-daemon -x test
 FROM openjdk:17-jdk-slim
 EXPOSE 8080
 COPY --from=builder /application/build/libs/*.jar /app/spring-boot-server.jar
-ENTRYPOINT ["java", "-jar", "/app/spring-boot-server.jar"]
+ENV JAVA_OPTS="-Dspring.profiles.active=docker -Dspring.config.location=classpath:/application-docker.yml"
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/spring-boot-server.jar"]
