@@ -19,14 +19,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-    implementation('org.apache.logging.log4j:log4j-api:2.19.0')
-    implementation('org.apache.logging.log4j:log4j-core:2.19.0')
+    implementation 'org.apache.logging.log4j:log4j-api:2.19.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
 
     runtimeOnly 'com.h2database:h2'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
+
+    implementation 'org.liquibase:liquibase-core'
 }
 
 tasks.named('test') {
