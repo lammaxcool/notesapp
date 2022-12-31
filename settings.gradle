@@ -1,1 +1,3 @@
-rootProject.name = 'notesapp'
+rootProject.name = 'notes-app'
+
+include 'notes-app-server'
