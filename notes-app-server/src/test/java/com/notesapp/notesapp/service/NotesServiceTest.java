@@ -1,5 +1,10 @@
 package com.notesapp.notesapp.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.notesapp.notesapp.model.persistence.NotePo;
 import com.notesapp.notesapp.model.view.NoteView;
 import com.notesapp.notesapp.repository.NotesRepository;
@@ -10,24 +15,22 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class NotesServiceTest {
 
     @Mock
     NotesRepository notesRepository;
+    @Mock
+    NotificationService<NoteView> notificationService;
 
     NotesService notesService;
 
     @BeforeEach
     void setUp() {
-        notesService = new NotesService(notesRepository);
+        notesService = new NotesService(notesRepository, notificationService);
     }
 
     @Test
@@ -40,6 +43,7 @@ class NotesServiceTest {
         assertThat(createdNote.id()).isNotNull();
         assertThat(createdNote.title()).isEqualTo(noteToCreate.title());
         assertThat(createdNote.content()).isEqualTo(noteToCreate.content());
+        verify(notificationService).onCreate(createdNote);
     }
 
     @Test
@@ -52,7 +56,7 @@ class NotesServiceTest {
         assertThat(note.id()).isEqualTo(notePo.getId());
         assertThat(note.title()).isEqualTo(notePo.getTitle());
         assertThat(note.content()).isEqualTo(notePo.getContent());
-
+        verify(notificationService).onRead(note);
     }
 
     @Test
@@ -68,20 +72,20 @@ class NotesServiceTest {
                     assertThat(note.title()).isEqualTo(notePo.getTitle());
                     assertThat(note.content()).isEqualTo(notePo.getContent());
                 });
-
+        verify(notificationService).onRead(new NoteView(notePo));
     }
 
     @Test
     void getNote_whenNoteIsNotFound() {
         when(notesRepository.findById(1L)).thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class, () -> notesService.getNoteById(1L));
+        assertThrows(NoSuchElementException.class, () -> notesService.getNoteById(1L));
     }
 
     @Test
     void updateNote() {
-        var updatedNoteView = new NoteView(1L, "new content", "new title");
         var updatedNotePo = new NotePo(1L, "new content", "new title");
+        var updatedNoteView = new NoteView(updatedNotePo);
 
         when(notesRepository.existsById(1L)).thenReturn(true);
         when(notesRepository.save(updatedNotePo)).thenReturn(updatedNotePo);
@@ -91,6 +95,7 @@ class NotesServiceTest {
         assertThat(updatedNote.id()).isEqualTo(updatedNoteView.id());
         assertThat(updatedNote.title()).isEqualTo(updatedNoteView.title());
         assertThat(updatedNote.content()).isEqualTo(updatedNoteView.content());
+        verify(notificationService).onUpdate(updatedNote);
     }
 
     @Test
@@ -102,17 +107,19 @@ class NotesServiceTest {
 
     @Test
     void deleteNote() {
-        when(notesRepository.existsById(1L)).thenReturn(true);
+        var notePo = new NotePo(1L, "new content", "new title");
+        when(notesRepository.findById(1L)).thenReturn(Optional.of(notePo));
 
         notesService.deleteNoteById(1L);
 
         verify(notesRepository).deleteById(1L);
+        verify(notificationService).onDelete(new NoteView(notePo));
     }
 
     @Test
     void deleteNote_whenNoteIsNotFound() {
-        when(notesRepository.existsById(1L)).thenReturn(false);
+        when(notesRepository.findById(1L)).thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class, () -> notesService.deleteNoteById(1L));
+        assertThrows(NoSuchElementException.class, () -> notesService.deleteNoteById(1L));
     }
 }
