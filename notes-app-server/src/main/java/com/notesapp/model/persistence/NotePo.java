@@ -1,4 +1,4 @@
-package com.notesapp.notesapp.model.persistence;
+package com.notesapp.model.persistence;
 
 import javax.persistence.*;
 import java.util.Objects;

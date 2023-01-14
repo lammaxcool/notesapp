@@ -1,4 +1,4 @@
-package com.notesapp.notesapp.controller;
+package com.notesapp.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -13,8 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.notesapp.notesapp.model.view.NoteView;
-import com.notesapp.notesapp.service.NotesService;
+import com.notesapp.model.view.NoteView;
+import com.notesapp.service.NotesService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

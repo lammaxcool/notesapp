@@ -1,4 +1,4 @@
-package com.notesapp.notesapp.model.event;
+package com.notesapp.model.event;
 
 public enum EventType {
 

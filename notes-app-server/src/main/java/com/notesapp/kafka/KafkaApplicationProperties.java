@@ -1,4 +1,4 @@
-package com.notesapp.notesapp.kafka;
+package com.notesapp.kafka;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;

@@ -1,8 +1,8 @@
-package com.notesapp.notesapp.service;
+package com.notesapp.service;
 
-import com.notesapp.notesapp.model.persistence.NotePo;
-import com.notesapp.notesapp.model.view.NoteView;
-import com.notesapp.notesapp.repository.NotesRepository;
+import com.notesapp.model.persistence.NotePo;
+import com.notesapp.model.view.NoteView;
+import com.notesapp.repository.NotesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

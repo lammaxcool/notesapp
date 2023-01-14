@@ -1,6 +1,6 @@
-package com.notesapp.notesapp.kafka;
+package com.notesapp.kafka;
 
-import com.notesapp.notesapp.model.event.NoteAccessEvent;
+import com.notesapp.model.event.NoteAccessEvent;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

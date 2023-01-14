@@ -1,6 +1,6 @@
-package com.notesapp.notesapp.repository;
+package com.notesapp.repository;
 
-import com.notesapp.notesapp.model.persistence.NotePo;
+import com.notesapp.model.persistence.NotePo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

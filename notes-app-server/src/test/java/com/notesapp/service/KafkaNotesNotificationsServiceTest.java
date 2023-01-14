@@ -1,13 +1,13 @@
-package com.notesapp.notesapp.service;
+package com.notesapp.service;
 
 
-import static com.notesapp.notesapp.model.event.EventType.CREATED;
+import static com.notesapp.model.event.EventType.CREATED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.notesapp.notesapp.kafka.KafkaProducerConfiguration;
-import com.notesapp.notesapp.model.event.NoteAccessEvent;
-import com.notesapp.notesapp.model.view.NoteView;
+import com.notesapp.model.view.NoteView;
+import com.notesapp.kafka.KafkaProducerConfiguration;
+import com.notesapp.model.event.NoteAccessEvent;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;

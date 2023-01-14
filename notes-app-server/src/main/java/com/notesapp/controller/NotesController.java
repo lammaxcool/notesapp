@@ -1,7 +1,7 @@
-package com.notesapp.notesapp.controller;
+package com.notesapp.controller;
 
-import com.notesapp.notesapp.model.view.NoteView;
-import com.notesapp.notesapp.service.NotesService;
+import com.notesapp.model.view.NoteView;
+import com.notesapp.service.NotesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

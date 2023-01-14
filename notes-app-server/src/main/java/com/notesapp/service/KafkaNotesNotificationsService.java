@@ -1,9 +1,9 @@
-package com.notesapp.notesapp.service;
+package com.notesapp.service;
 
-import com.notesapp.notesapp.kafka.KafkaApplicationProperties;
-import com.notesapp.notesapp.model.event.EventType;
-import com.notesapp.notesapp.model.event.NoteAccessEvent;
-import com.notesapp.notesapp.model.view.NoteView;
+import com.notesapp.kafka.KafkaApplicationProperties;
+import com.notesapp.model.event.NoteAccessEvent;
+import com.notesapp.model.view.NoteView;
+import com.notesapp.model.event.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;

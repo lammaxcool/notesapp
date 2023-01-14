@@ -1,13 +1,14 @@
-package com.notesapp.notesapp.service;
+package com.notesapp.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.notesapp.notesapp.model.persistence.NotePo;
-import com.notesapp.notesapp.model.view.NoteView;
-import com.notesapp.notesapp.repository.NotesRepository;
+import com.notesapp.model.persistence.NotePo;
+import com.notesapp.model.view.NoteView;
+import com.notesapp.repository.NotesRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,9 +41,9 @@ class NotesServiceTest {
         var noteToCreate = new NoteView("title", "content");
 
         var createdNote = notesService.createNote(noteToCreate);
-        assertThat(createdNote.id()).isNotNull();
-        assertThat(createdNote.title()).isEqualTo(noteToCreate.title());
-        assertThat(createdNote.content()).isEqualTo(noteToCreate.content());
+        Assertions.assertThat(createdNote.id()).isNotNull();
+        Assertions.assertThat(createdNote.title()).isEqualTo(noteToCreate.title());
+        Assertions.assertThat(createdNote.content()).isEqualTo(noteToCreate.content());
         verify(notificationService).onCreate(createdNote);
     }
 
@@ -53,9 +54,9 @@ class NotesServiceTest {
 
         var note = notesService.getNoteById(1L);
 
-        assertThat(note.id()).isEqualTo(notePo.getId());
-        assertThat(note.title()).isEqualTo(notePo.getTitle());
-        assertThat(note.content()).isEqualTo(notePo.getContent());
+        Assertions.assertThat(note.id()).isEqualTo(notePo.getId());
+        Assertions.assertThat(note.title()).isEqualTo(notePo.getTitle());
+        Assertions.assertThat(note.content()).isEqualTo(notePo.getContent());
         verify(notificationService).onRead(note);
     }
 
@@ -66,11 +67,11 @@ class NotesServiceTest {
 
         var notes = notesService.getAllNotes();
 
-        assertThat(notes).hasSize(1)
+        Assertions.assertThat(notes).hasSize(1)
                 .allSatisfy(note -> {
-                    assertThat(note.id()).isEqualTo(notePo.getId());
-                    assertThat(note.title()).isEqualTo(notePo.getTitle());
-                    assertThat(note.content()).isEqualTo(notePo.getContent());
+                    Assertions.assertThat(note.id()).isEqualTo(notePo.getId());
+                    Assertions.assertThat(note.title()).isEqualTo(notePo.getTitle());
+                    Assertions.assertThat(note.content()).isEqualTo(notePo.getContent());
                 });
         verify(notificationService).onRead(new NoteView(notePo));
     }
@@ -92,9 +93,9 @@ class NotesServiceTest {
 
         var updatedNote = notesService.updateNote(updatedNoteView);
 
-        assertThat(updatedNote.id()).isEqualTo(updatedNoteView.id());
-        assertThat(updatedNote.title()).isEqualTo(updatedNoteView.title());
-        assertThat(updatedNote.content()).isEqualTo(updatedNoteView.content());
+        Assertions.assertThat(updatedNote.id()).isEqualTo(updatedNoteView.id());
+        Assertions.assertThat(updatedNote.title()).isEqualTo(updatedNoteView.title());
+        Assertions.assertThat(updatedNote.content()).isEqualTo(updatedNoteView.content());
         verify(notificationService).onUpdate(updatedNote);
     }
 

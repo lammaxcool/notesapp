@@ -1,4 +1,4 @@
-package com.notesapp.notesapp.kafka;
+package com.notesapp.kafka;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

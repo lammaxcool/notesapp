@@ -1,4 +1,4 @@
-package com.notesapp.notesapp.service;
+package com.notesapp.service;
 
 public interface NotificationService<T> {
 

@@ -1,6 +1,6 @@
-package com.notesapp.notesapp.model.view;
+package com.notesapp.model.view;
 
-import com.notesapp.notesapp.model.persistence.NotePo;
+import com.notesapp.model.persistence.NotePo;
 
 public record NoteView(Long id, String title, String content) {
 
