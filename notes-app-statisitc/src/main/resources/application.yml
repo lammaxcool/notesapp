@@ -21,3 +21,14 @@ spring:
     consumer:
       auto-offset-reset: earliest
       group-id: "notesapp"
+
+    liquibase:
+      change-log: classpath:db/changelog/db.changelog-master.xml
+
+    jpa:
+      hibernate:
+        ddl-auto: validate
+      database-platform: org.hibernate.dialect.H2Dialect
+
+    h2:
+      console.enabled: true
