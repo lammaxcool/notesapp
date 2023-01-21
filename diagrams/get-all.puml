@@ -1,0 +1,29 @@
+@startuml
+
+title "Get all notes"
+
+actor Client as client
+participant Controller as controller
+participant Service as service
+participant Repository as repository
+participant DB as db
+
+client -> controller: GET /notes
+controller -> service: getAll
+service -> repository: findAll
+repository -> db: /query/
+db -> repository: /query result/
+repository -> service: [NotePo1, NotePo2...]
+note right
+NotePo {
+  "id": 1,
+  "title": "title",
+  "content": "content"
+}
+end note
+service -> service: convertNote
+service -> controller: [NoteView1, NoteView2...]
+controller -> client: [NoteView1, NoteView2...]
+
+
+@enduml

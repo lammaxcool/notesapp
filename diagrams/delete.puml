@@ -1,0 +1,24 @@
+@startuml
+
+title "Delete one note"
+
+actor Client as client
+participant Controller as controller
+participant Service as service
+participant Repository as repository
+participant DB as db
+
+client -> controller: DELETE /notes/1
+controller -> service: deleteNoteById
+service -> repository: existsById
+repository -> db: /query/
+db -> repository: /query result/
+repository -> service: /true/
+service -> repository: deleteNoteById
+repository -> db: /query/
+db -> repository: /query result/
+repository -> service: /OK/
+service -> controller: /OK/
+controller -> client: 200 OK
+
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+
+title "Create note"
+
+actor Client as client
+participant Controller as controller
+participant Service as service
+participant Repository as repository
+participant DB as db
+
+client -> controller: POST /notes
+note left
+NoteView {
+  "title": "title",
+  "content": "content"
+}
+end note
+controller -> service: createNote
+service -> service: convertNote
+service -> repository: save
+repository -> service: NotePo
+note right
+saved note:
+NotePo {
+  "id": 1,
+  "title": "title",
+  "content": "content"
+}
+end note
+service -> service: convertNote
+service -> controller: NoteView
+controller -> client: NoteView
+
+@enduml
