@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
 
-  notes-app:
+  notes-app-server:
     container_name: notes-app-server
     image: notes-app-server
     environment:
