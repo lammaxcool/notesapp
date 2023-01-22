@@ -1,5 +1,8 @@
 package com.notesapp.statistic;
 
+import com.notesapp.statistic.model.event.EventType;
+import com.notesapp.statistic.model.event.NoteAccessEvent;
+import com.notesapp.statistic.model.view.NoteView;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,14 +16,5 @@ public class NotesAppStatistic {
 
     public static void main(String[] args) {
         SpringApplication.run(NotesAppStatistic.class, args);
-    }
-
-    @Bean
-    public CommandLineRunner runner(KafkaTemplate<String, String> kafkaTemplate) {
-        return args -> {
-            for (int i = 0; i < 10; i++) {
-                kafkaTemplate.send("testTopic", String.format("hello to kafka! - [%s]", i));
-            }
-        };
     }
 }
