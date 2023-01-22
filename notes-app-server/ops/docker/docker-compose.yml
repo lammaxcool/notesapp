@@ -3,8 +3,8 @@ version: '3.7'
 services:
 
   notes-app:
-    container_name: app
-    image: notes-app
+    container_name: notes-app-server
+    image: notes-app-server
     environment:
       - JAVA_OPTS=
         -Dspring.profiles.active=docker

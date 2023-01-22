@@ -5,7 +5,7 @@ server:
 application:
   kafka:
     topic: "testTopic"
-    bootstrap-servers: "localhost:9092"
+    bootstrap-servers: "kafka:9092"
 
 spring:
   datasource:
@@ -14,10 +14,19 @@ spring:
     password: password
     driverClassName: org.h2.Driver
 
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.H2Dialect
+
   h2:
     console.enabled: true
 
   kafka:
+    bootstrap-servers: "kafka:9092"
     consumer:
       auto-offset-reset: earliest
       group-id: "notesapp"
