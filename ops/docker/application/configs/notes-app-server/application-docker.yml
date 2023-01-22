@@ -52,3 +52,11 @@ management:
     web:
       exposure:
         include: "*"
+
+resilience4j:
+  ratelimiter:
+    instances:
+      rateLimiterGetAll:
+        limitForPeriod: 5
+        limitRefreshPeriod: 60s
+        timeoutDuration: 1s
