@@ -5,13 +5,15 @@ import com.notesapp.statistic.model.event.EventType;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "NoteAccessEvents")
+@Table(name = "Events")
 public class NoteAccessEventPo {
 
     @Id
@@ -19,10 +21,19 @@ public class NoteAccessEventPo {
     private Long id;
 
     @Column(nullable = false)
-    private Long noteId;
+    private Long note;
 
     @Column(nullable = false)
-    private EventType eventType;
+    @Enumerated(EnumType.STRING)
+    private EventType type;
+
+    public NoteAccessEventPo() {
+    }
+
+    public NoteAccessEventPo(Long note, EventType type) {
+        this.note = note;
+        this.type = type;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -32,20 +43,20 @@ public class NoteAccessEventPo {
         return id;
     }
 
-    public Long noteId() {
-        return noteId;
+    public Long getNote() {
+        return note;
     }
 
-    public void setNoteId(Long noteId) {
-        this.noteId = noteId;
+    public void setNote(Long noteId) {
+        this.note = noteId;
     }
 
-    public EventType eventType() {
-        return eventType;
+    public EventType getType() {
+        return type;
     }
 
-    public void setEventType(EventType eventType) {
-        this.eventType = eventType;
+    public void setType(EventType eventType) {
+        this.type = eventType;
     }
 
     @Override
@@ -57,11 +68,11 @@ public class NoteAccessEventPo {
             return false;
         }
         NoteAccessEventPo that = (NoteAccessEventPo) o;
-        return Objects.equals(id, that.id) && Objects.equals(noteId, that.noteId) && eventType == that.eventType;
+        return Objects.equals(id, that.id) && Objects.equals(note, that.note) && type == that.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, noteId, eventType);
+        return Objects.hash(id, note, type);
     }
 }
