@@ -2,6 +2,11 @@ server:
   port: '8080'
   shutdown: graceful
 
+application:
+  kafka:
+    topic: "testTopic"
+    bootstrap-servers: "kafka:9092"
+
 spring:
   datasource:
     url: jdbc:postgresql://dpg-cekfh1pgp3jlcsks1bn0-a.frankfurt-postgres.render.com/notes_app_db_production
@@ -10,12 +15,18 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.xml
+    change-log: classpath:db/changelog/db.changelog-server.xml
 
   jpa:
     hibernate:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  kafka:
+    bootstrap-servers: "kafka:9092"
+    producer:
+      properties:
+        spring.json.add.type.headers: false
 
 management:
   server:

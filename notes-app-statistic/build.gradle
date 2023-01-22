@@ -30,7 +30,7 @@ dependencies {
     testImplementation 'org.testcontainers:kafka:1.17.6'
     testImplementation 'org.assertj:assertj-core'
 
-    compileOnly project(':notes-app-server')
+    implementation project(':notes-app-server')
 }
 
 tasks.named('test') {
