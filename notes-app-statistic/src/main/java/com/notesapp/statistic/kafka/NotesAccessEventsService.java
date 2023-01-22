@@ -1,6 +1,6 @@
 package com.notesapp.statistic.kafka;
 
-import com.notesapp.statistic.model.event.NoteAccessEvent;
+import com.notesapp.model.event.NoteAccessEvent;
 import com.notesapp.statistic.model.persistence.NoteAccessEventPo;
 import com.notesapp.statistic.repository.NotesAccessEventsRepository;
 import org.springframework.stereotype.Service;

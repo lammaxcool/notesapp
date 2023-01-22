@@ -1,0 +1,72 @@
+version: '3.7'
+
+services:
+
+  notes-app-server:
+    container_name: notes-app-server
+    image: notes-app-server
+    environment:
+      - JAVA_OPTS=
+        -Dspring.profiles.active=docker
+        -Dspring.config.location=/opt/local/notes-app/config/application-docker.yml
+    volumes:
+      - ./configs/notes-app-server:/opt/local/notes-app/config
+      - ~/data/docker/notes-app/log:/opt/local/notes-app/log
+    networks:
+      - app-network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - kafka
+
+  notes-app-statistic:
+    container_name: notes-app-statistic
+    image: notes-app-statistic
+    environment:
+      - JAVA_OPTS=
+        -Dspring.profiles.active=docker
+        -Dspring.config.location=/opt/local/notes-app-statistic/config/application-docker.yml
+    volumes:
+      - ./configs/notes-app-statistic:/opt/local/notes-app-statistic/config
+      - ~/data/docker/notes-app/log:/opt/local/notes-app-statistic/log
+    networks:
+      - app-network
+    ports:
+      - "8081:8081"
+    depends_on:
+      - kafka
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    expose:
+      - "2181"
+    networks:
+      - app-network
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    networks:
+      - app-network
+
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_INTERNAL://localhost:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_LOG4J_ROOT_LOGLEVEL: ERROR
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,7 +1,7 @@
 package com.notesapp.statistic.kafka.producer;
 
+import com.notesapp.model.event.NoteAccessEvent;
 import com.notesapp.statistic.kafka.KafkaApplicationProperties;
-import com.notesapp.statistic.model.event.NoteAccessEvent;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

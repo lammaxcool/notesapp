@@ -1,6 +1,6 @@
 package com.notesapp.statistic.model.persistence;
 
-import com.notesapp.statistic.model.event.EventType;
+import com.notesapp.model.event.EventType;
 
 import java.util.Objects;
 import javax.persistence.Column;

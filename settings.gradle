@@ -1,6 +1,3 @@
 rootProject.name = 'notes-app'
 
-include 'notes-app-server'
-include 'notes-app-statistic-service'
-include 'notes-app-statisitc'
-
+include 'notes-app-server', 'notes-app-statistic'
