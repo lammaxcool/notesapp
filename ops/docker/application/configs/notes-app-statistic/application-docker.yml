@@ -8,6 +8,9 @@ application:
     bootstrap-servers: "kafka:9092"
 
 spring:
+  application:
+    name: notes-app-statistic
+
   json:
     trusted:
       packages: "*"
@@ -37,6 +40,11 @@ spring:
       consumer:
         properties:
           spring.json.trusted.packages: "*"
+
+  cloud:
+    consul:
+      host: consul
+      port: 8500
 
 management:
   server:

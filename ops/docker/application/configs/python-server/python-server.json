@@ -1,0 +1,9 @@
+{
+  "service": {
+    "name": "python-server",
+    "tags": [
+      "python-server"
+    ],
+    "port": 5000
+  }
+}

@@ -8,6 +8,9 @@ application:
     bootstrap-servers: "kafka:9092"
 
 spring:
+  application:
+    name: notes-app-server
+
   datasource:
     url: jdbc:postgresql://dpg-cekfh1pgp3jlcsks1bn0-a.frankfurt-postgres.render.com/notes_app_db_production
     username: notes_app_service_user
@@ -27,6 +30,11 @@ spring:
     producer:
       properties:
         spring.json.add.type.headers: false
+
+  cloud:
+    consul:
+      host: consul
+      port: 8500
 
 management:
   server:

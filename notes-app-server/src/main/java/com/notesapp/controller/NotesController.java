@@ -33,6 +33,11 @@ public class NotesController {
         return notesService.getAllNotes();
     }
 
+    @GetMapping(path = "/random", produces = "application/json")
+    public NoteView getRandomNote() {
+        return notesService.getRandomNote();
+    }
+
     @PutMapping(path = "/edit", consumes = "application/json", produces = "application/json")
     public NoteView updateNote(@RequestBody NoteView noteView) {
         return notesService.updateNote(noteView);

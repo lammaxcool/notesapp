@@ -1,6 +1,7 @@
 package com.notesapp.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static java.util.Collections.emptyList;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -122,5 +123,17 @@ class NotesServiceTest {
         when(notesRepository.findById(1L)).thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () -> notesService.deleteNoteById(1L));
+    }
+
+    @Test
+    void randomNote_empty() {
+        when(notesRepository.findAll()).thenReturn(emptyList());
+        assertNotNull(notesService.getRandomNote());
+    }
+
+    @Test
+    void randomNote_one() {
+        when(notesRepository.findAll()).thenReturn(List.of(new NotePo(1L, "new content", "new title")));
+        assertNotNull(notesService.getRandomNote());
     }
 }

@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  consul:
+    image: hashicorp/consul:latest
+    container_name: consul
+    environment:
+      - "CONSUL_BIND_INTERFACE=eth0"
+    networks:
+      - consul-network
+    expose:
+      - "8500"
+      - "8600/tcp"
+      - "8600/udp"
+    ports:
+      - "12220:8500"
+    volumes:
+      - ./configs/python-server:/consul/config/
+
+  python-server:
+    container_name: python-server
+    image: python-server:latest
+    ports:
+      - "5050:5000"
+    networks:
+      - consul-network
+    depends_on:
+      - consul
+
+networks:
+  consul-network:
+    driver: bridge

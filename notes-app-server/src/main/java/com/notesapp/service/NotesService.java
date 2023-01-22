@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class NotesService {
@@ -73,5 +75,20 @@ public class NotesService {
 
     private static NotePo convertNote(NoteView noteView) {
         return new NotePo(noteView.id(), noteView.title(), noteView.content());
+    }
+
+    public NoteView getRandomNote() {
+        List<NoteView> allNotes = getAllNotes();
+        return allNotes.size() == 1 ? allNotes.get(0) : randomNote(allNotes);
+    }
+
+    private static NoteView randomNote(List<NoteView> allNotes) {
+        if (allNotes.isEmpty()) {
+            return new NoteView(ThreadLocalRandom.current().nextLong(),
+                    UUID.randomUUID().toString(),
+                    UUID.randomUUID().toString());
+        }
+
+        return allNotes.get(ThreadLocalRandom.current().nextInt(allNotes.size() - 1));
     }
 }

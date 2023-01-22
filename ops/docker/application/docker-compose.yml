@@ -18,6 +18,7 @@ services:
       - "8080:8080"
     depends_on:
       - kafka
+      - consul
 
   notes-app-statistic:
     container_name: notes-app-statistic
@@ -35,6 +36,33 @@ services:
       - "8081:8081"
     depends_on:
       - kafka
+      - consul
+
+  python-server:
+    container_name: python-server
+    image: python-server:latest
+    ports:
+      - "5050:5000"
+    networks:
+      - app-network
+    depends_on:
+      - consul
+
+  consul:
+    image: hashicorp/consul:latest
+    container_name: consul
+    environment:
+      - "CONSUL_BIND_INTERFACE=eth0"
+    networks:
+      - app-network
+    expose:
+      - "8500"
+      - "8600/tcp"
+      - "8600/udp"
+    ports:
+      - "12220:8500"
+    volumes:
+      - ./configs/python-server:/consul/config/
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
