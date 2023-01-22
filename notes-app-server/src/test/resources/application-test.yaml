@@ -11,7 +11,7 @@ spring:
     driverClassName: org.h2.Driver
 
   liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.xml
+    change-log: classpath:db/changelog/db.changelog-server.xml
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
