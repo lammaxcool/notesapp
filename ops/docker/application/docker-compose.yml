@@ -3,7 +3,6 @@ version: '3.7'
 services:
 
   notes-app-server:
-    container_name: notes-app-server
     image: notes-app-server
     environment:
       - JAVA_OPTS=
@@ -14,14 +13,15 @@ services:
       - ~/data/docker/notes-app/log:/opt/local/notes-app/log
     networks:
       - app-network
+    deploy:
+      replicas: 2
     ports:
-      - "8080:8080"
+      - "8080"
     depends_on:
       - kafka
       - consul
 
   notes-app-statistic:
-    container_name: notes-app-statistic
     image: notes-app-statistic
     environment:
       - JAVA_OPTS=
@@ -32,8 +32,10 @@ services:
       - ~/data/docker/notes-app/log:/opt/local/notes-app-statistic/log
     networks:
       - app-network
+    deploy:
+      replicas: 2
     ports:
-      - "8081:8081"
+      - "8081"
     depends_on:
       - kafka
       - consul
